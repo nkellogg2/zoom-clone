@@ -1,4 +1,4 @@
-# Concord Zoom Alternative!
+# Concord: Zoom Alternative!
 
 ## So far utilizing:
 * **NodeJS** of course, main backend
