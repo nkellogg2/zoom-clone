@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const { v4: uuidv4 } = require('uuid');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -16,7 +17,19 @@ app.get('/', (req, res) => {
 })
 
 app.get('/:room', (req, res) => {
-    res.render('room', { roomID: req.params.room });
+    res.render('room', { roomId: req.params.room });
+})
+
+// on server connection, pass 'socket' into function
+io.on('connection', socket => {
+    // this function catches "emitted" join-room
+    socket.on('join-room', (roomId) => {
+        console.log("Joined room");
+        // now need to actually join room, aka add streams
+        socket.join(roomId);
+        // broadcast to existing users in room that new user joined
+        socket.broadcast.to(roomId).emit('user-connected');
+    })
 })
 
 

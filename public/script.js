@@ -1,5 +1,7 @@
 // where frontend js lives
 
+const socket = io('/');
+
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 myVideo.muted = true;
@@ -14,6 +16,17 @@ navigator.mediaDevices.getUserMedia({
     addVideoStream(myVideo, stream);
 })
 
+// upon creating document, pass 'join-room' to io.on('connection') in
+// server.js
+socket.emit('join-room', ROOM_ID);
+
+socket.on('user-connected', () => {
+    connectToNewUser();
+})
+
+const connectToNewUser = () => {
+    console.log('new user');
+}
 
 const addVideoStream = (video, stream) => {
     video.srcObject = stream;

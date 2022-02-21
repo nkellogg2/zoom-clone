@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concord</title>
     <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+        const ROOM_ID = "<%= roomId %>"
         // uuid passed to console log using EJS templating
-        console.log("<%= roomID %>");
     </script>
 </head>
 <body>
@@ -17,6 +18,7 @@
 
     </div>
 
+    <!-- Be sure to place code that references elements AFTER the declaration of said elements-->
     <script src="script.js"></script>
 </body>
 </html>
